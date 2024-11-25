@@ -68,6 +68,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .card:hover {

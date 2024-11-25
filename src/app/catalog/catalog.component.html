@@ -20,37 +20,39 @@
     </div>
   </div>
   
-  <!-- Repetição para os cards -->
-  <div class="card-grid">
-    <div class="card" *ngFor="let recipe of paginatedRecipes">
-      <div class="content">
-        <div class="front">
-          <div class="img">
-            <img
-              [src]="recipe.image"
-              alt="Imagem da Receita"
-              class="card-img-top"
-            />
-          </div>
+  <nav>
+    <ul class="card-grid">
+      <li *ngFor="let recipe of paginatedRecipes" class="card">
+        <a (click)="navigateToDetails(recipe.id)" class="content"> <!-- Altere o link para o click handler -->
 
-          <div class="front-content">
-            <small class="badge">Categoria: {{ recipe.category }}</small>
-            <div class="description">
-              <div class="title">
-                <p class="title">
-                  <strong>{{ recipe.title }}</strong>
+          <div class="front">
+            <div class="img">
+              <img
+                [src]="recipe.image"
+                alt="Imagem da Receita"
+                class="card-img-top"
+              />
+            </div>
+
+            <div class="front-content">
+              <small class="badge">Categoria: {{ recipe.category }}</small>
+              <div class="description">
+                <div class="title">
+                  <p class="title">
+                    <strong>{{ recipe.title }}</strong>
+                  </p>
+                </div>
+                <p class="card-footer">
+                  {{ recipe.cookingTime }} Mins &nbsp; | &nbsp;
+                  {{ recipe.serving }} Serving
                 </p>
               </div>
-              <p class="card-footer">
-                {{ recipe.cookingTime }} Mins &nbsp; | &nbsp;
-                {{ recipe.serving }} Serving
-              </p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
   <!-- Navegação de página -->
   <div class="pagination">

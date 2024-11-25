@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';  // Importando o Router
 import { SearchCatalogComponent } from '../search-catalog/search-catalog.component';
 
-@Component({
+@Component( 
+{
   selector: 'app-catalog',
   standalone: true,
   imports: [CommonModule, SearchCatalogComponent],
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
-})
+  styleUrls: ['./catalog.component.css']
+}
+)
 export class CatalogComponent {
   recipes = [
-    { image: 'image1.jpg', category: 'Massas', title: 'Macarrão com molho de tomate', cookingTime: 20, serving: 2 },
-    { image: 'image2.jpg', category: 'Sopas', title: 'Sopa de legumes', cookingTime: 30, serving: 4 },
+    { id: '1', image: 'image1.jpg', category: 'Massas', title: 'Macarrão com molho de tomate', cookingTime: 20, serving: 2 },
+    { id: '2', image: 'image2.jpg', category: 'Sopas', title: 'Sopa de legumes', cookingTime: 30, serving: 4 },
+    // Adicione mais receitas conforme necessário
   ];
 
   // Configurações de paginação
@@ -53,5 +57,12 @@ export class CatalogComponent {
   tabClicked(tab: any): void {
     this.tabs.forEach(t => t.active = false);
     tab.active = true;
+  }
+
+  constructor(private router: Router) {}
+
+  // Método para navegar para a página de detalhes
+  navigateToDetails(recipeId: string): void {
+    this.router.navigate(['/details', recipeId]);  // Navegando para a rota de detalhes passando o ID da receita
   }
 }

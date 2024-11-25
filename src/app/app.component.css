@@ -2,9 +2,10 @@
 
 body {
   font-family: "Rubik", sans-serif;
+  margin: 0;
+  padding-bottom: 60px; /* Adiciona um padding extra para o conteúdo não ficar embaixo do rodapé */
 }
 
-/* heade r*/
 li,
 a {
   font-weight: 500;
@@ -13,6 +14,7 @@ a {
   text-decoration: none;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: flex-end;
@@ -56,13 +58,20 @@ header {
   transition: all 0.3s ease;
 }
 
-/* footer */
+/* Footer fixo */
 footer {
   display: flex;
   color: white;
   background-color: orange;
   justify-content: center;
-  padding: 2px;
-  margin-top: auto;
-  position: relative;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Faz o rodapé ocupar toda a largura da tela */
+  z-index: 1000; /* Garante que o rodapé fique acima de outros conteúdos */
+}
+
+main {
+  margin-bottom: 60px; /* Adiciona espaço suficiente para que o conteúdo não fique atrás do rodapé */
 }
