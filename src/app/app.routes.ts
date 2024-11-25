@@ -6,11 +6,10 @@ import { SearchCatalogComponent } from './search-catalog/search-catalog.componen
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  {path:'',redirectTo:'/search', pathMatch:'full'},
-  {path:'search', component: SearchCatalogComponent},
+  { path: '', redirectTo: '/search', pathMatch: 'full' }, // Redireciona para a pesquisa ao acessar a raiz
+  { path: 'search', component: SearchCatalogComponent },
   { path: 'catalog', component: CatalogComponent },
-  { path: 'details/:id', component: DetailsComponent },
+  { path: 'details/:id', component: DetailsComponent }, // Rota com parâmetro dinâmico
 ];
 
 @NgModule({
@@ -20,5 +19,4 @@ export const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-
-export class appRoutes{}
+export class AppRoutes {}
