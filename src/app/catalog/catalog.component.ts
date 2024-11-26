@@ -1,37 +1,52 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchCatalogComponent } from '../search-catalog/search-catalog.component';
+import { apiService } from '../services/api.service';
+import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [CommonModule, SearchCatalogComponent],
+  imports: [CommonModule, SearchCatalogComponent, HttpClientModule],
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styleUrls: ['./catalog.component.css']
 })
-export class CatalogComponent {
-  recipes = [
-    { image: 'image1.jpg', category: 'Massas', title: 'Macarrão com molho de tomate', cookingTime: 20, serving: 2 },
-    { image: 'image2.jpg', category: 'Sopas', title: 'Sopa de legumes', cookingTime: 30, serving: 4 },
-  ];
+export class CatalogComponent implements OnInit {
+  recipes: any[] = []; // Definindo a variável de receitas
+  itemsPerPage = 4;  // Configurações de paginação
+  currentPage = 1;
 
-  // Configurações de paginação
-  itemsPerPage = 4;  
-  currentPage = 1;   
+  // A função para buscar as receitas da API
+  constructor(private router: Router, private recipeService: apiService) {}
+
+  ngOnInit(): void {
+    this.fetchRecipes(); // Chama a função de busca ao inicializar o componente
+  }
+
+  fetchRecipes(): void {
+    this.recipeService.getRecipes().subscribe(
+      (data) => {
+        console.log('Receitas:', data);
+        this.recipes = data.recipes; // Atualizando as receitas com os dados da API
+      },
+      (error) => {
+        console.error('Erro ao buscar receitas:', error);
+      }
+    );
+  }
 
   get paginatedRecipes() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.recipes.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Função de navegação de página
   goToPage(page: number): void {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
     }
   }
 
-  // Calcular o total de páginas com base no número de receitas
   get totalPages() {
     return Math.ceil(this.recipes.length / this.itemsPerPage);
   }
@@ -53,5 +68,10 @@ export class CatalogComponent {
   tabClicked(tab: any): void {
     this.tabs.forEach(t => t.active = false);
     tab.active = true;
+  }
+
+  // Método para navegar para a página de detalhes
+  navigateToDetails(recipeId: string): void {
+    this.router.navigate(['/details', recipeId]);
   }
 }

@@ -11,6 +11,7 @@ export const routes: Routes = [
   {path:'search', component: SearchCatalogComponent},
   { path: 'catalog', component: CatalogComponent },
   { path: 'details/:id', component: DetailsComponent },
+  { path: 'recipe/:id', component: DetailsComponent }
 ];
 
 @NgModule({
